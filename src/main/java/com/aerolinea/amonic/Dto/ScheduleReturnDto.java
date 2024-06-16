@@ -2,8 +2,7 @@ package com.aerolinea.amonic.Dto;
 
 import java.util.Date;
 
-public interface ScheduleDto extends IGenericDto{
-
+public interface ScheduleReturnDto {
 
     String getFlightNumber();
 
@@ -21,5 +20,4 @@ public interface ScheduleDto extends IGenericDto{
 
     String getCabinType();
     String getEconomyPrice();
-
 }

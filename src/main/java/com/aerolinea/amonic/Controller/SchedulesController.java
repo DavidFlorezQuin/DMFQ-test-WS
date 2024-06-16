@@ -8,6 +8,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -16,26 +17,45 @@ import java.util.List;
 @RequestMapping("v1/api/schedules")
 
 public class SchedulesController extends ABaseController<Schedules, ISchedulesService> {
-    /**
-     * Constructor for ABaseController.
-     *
-     * @param service    The service for the entity.
-     */
+
+
     protected SchedulesController(ISchedulesService service) {
         super(service, "Schedules");
     }
 
-    @PostMapping("/search")
-    public ResponseEntity<ApiResponseDto<List<ScheduleDto>>> show( @RequestParam("origin") String origin,
-                                                                   @RequestParam("destination") String destination,
+
+
+    @GetMapping("/search")
+    public ResponseEntity<ApiResponseDto<List<ScheduleDto>>> show( @RequestParam("departureAirportCode") String departureAirportCode,
+                                                                   @RequestParam("arrivalAirportCode") String arrivalAirportCode,
                                                                    @RequestParam("cabinType") String cabinType,
-                                                                   @RequestParam("startDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
-                                                                   @RequestParam("endDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate) {
-        try {
-            List<ScheduleDto> entity = service.findFlightsByCriteria(origin, destination, cabinType, startDate, endDate);
+                                                                   @RequestParam("departureDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate departureDate){
+        try{
+            List<ScheduleDto> entity = service.getListFlight(departureAirportCode, arrivalAirportCode, cabinType, departureDate);
             return ResponseEntity.ok(new ApiResponseDto<List<ScheduleDto>>("Registro encontrado", entity, true));
-        } catch (Exception e) {
+
+        } catch (Exception e){
             return ResponseEntity.internalServerError().body(new ApiResponseDto<List<ScheduleDto>>(e.getMessage(), null, false));
+
         }
     }
+
+
+    @GetMapping("/searchReturn")
+    public ResponseEntity<ApiResponseDto<List<ScheduleDto>>> showReturn( @RequestParam("departureAirportCode") String departureAirportCode,
+                                                                   @RequestParam("arrivalAirportCode") String arrivalAirportCode,
+                                                                   @RequestParam("cabinType") String cabinType,
+                                                                   @RequestParam("departureDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate departureDate){
+        try{
+            List<ScheduleDto> entity = service.getListFlight(departureAirportCode, arrivalAirportCode, cabinType, departureDate);
+            return ResponseEntity.ok(new ApiResponseDto<List<ScheduleDto>>("Registro encontrado", entity, true));
+
+        } catch (Exception e){
+            return ResponseEntity.internalServerError().body(new ApiResponseDto<List<ScheduleDto>>(e.getMessage(), null, false));
+
+        }
+    }
+
+
+
 }

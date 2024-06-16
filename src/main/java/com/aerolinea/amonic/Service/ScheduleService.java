@@ -1,6 +1,7 @@
 package com.aerolinea.amonic.Service;
 
 import com.aerolinea.amonic.Dto.ScheduleDto;
+import com.aerolinea.amonic.Dto.ScheduleReturnDto;
 import com.aerolinea.amonic.Entity.Schedules;
 import com.aerolinea.amonic.IService.ISchedulesService;
 import com.aerolinea.amonic.Repository.IBaseRepository;
@@ -28,10 +29,9 @@ public class ScheduleService extends ABaseService<Schedules> implements ISchedul
         return repository.getListFlight(departureAirportCode, arrivalAirportCode, cabinType, departureDate);
     }
 
-   /* @Override
-    public List<ScheduleDto> findFlightsByCriteria(String origin, String destination, String cabinType, Date startDate, Date endDate) {
-        return repository.findFlightsByCriteria(origin, destination, cabinType, startDate, endDate);
+    @Override
+    public List<ScheduleReturnDto> getListFlightReturn(String departureAirportCode, String arrivalAirportCode, String cabinType, LocalDate departureDate) {
+        return repository.getListFlightReturn(departureAirportCode, arrivalAirportCode, cabinType, departureDate);
     }
 
-    */
 }

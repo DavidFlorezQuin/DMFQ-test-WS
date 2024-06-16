@@ -2,6 +2,7 @@ package com.aerolinea.amonic.Controller;
 
 import com.aerolinea.amonic.Dto.ApiResponseDto;
 import com.aerolinea.amonic.Dto.ScheduleDto;
+import com.aerolinea.amonic.Dto.ScheduleReturnDto;
 import com.aerolinea.amonic.Entity.Schedules;
 import com.aerolinea.amonic.IService.ISchedulesService;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -42,20 +43,19 @@ public class SchedulesController extends ABaseController<Schedules, ISchedulesSe
 
 
     @GetMapping("/searchReturn")
-    public ResponseEntity<ApiResponseDto<List<ScheduleDto>>> showReturn( @RequestParam("departureAirportCode") String departureAirportCode,
+    public ResponseEntity<ApiResponseDto<List<ScheduleReturnDto>>> showReturn( @RequestParam("departureAirportCode") String departureAirportCode,
                                                                    @RequestParam("arrivalAirportCode") String arrivalAirportCode,
                                                                    @RequestParam("cabinType") String cabinType,
                                                                    @RequestParam("departureDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate departureDate){
         try{
-            List<ScheduleDto> entity = service.getListFlight(departureAirportCode, arrivalAirportCode, cabinType, departureDate);
-            return ResponseEntity.ok(new ApiResponseDto<List<ScheduleDto>>("Registro encontrado", entity, true));
+            List<ScheduleReturnDto> entity = service.getListFlightReturn(departureAirportCode, arrivalAirportCode, cabinType, departureDate);
+            return ResponseEntity.ok(new ApiResponseDto<List<ScheduleReturnDto>>("Registro encontrado", entity, true));
 
         } catch (Exception e){
-            return ResponseEntity.internalServerError().body(new ApiResponseDto<List<ScheduleDto>>(e.getMessage(), null, false));
+            return ResponseEntity.internalServerError().body(new ApiResponseDto<List<ScheduleReturnDto>>(e.getMessage(), null, false));
 
         }
     }
-
 
 
 }

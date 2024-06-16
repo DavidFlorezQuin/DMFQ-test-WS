@@ -1,16 +1,14 @@
-function obtenerParametroUrl(nombre) {
-    var urlParams = new URLSearchParams(window.location.search);
-    return urlParams.get(nombre);
-}
+// Recuperar el objeto guardado en localStorage
+let vuelo = JSON.parse(localStorage.getItem('vuelo'));
 
-// Obtener parámetros y mostrarlos en la segunda vista
-window.addEventListener('DOMContentLoaded', function() {
-    var origen = obtenerParametroUrl('departureAirportCode');
-    var destino = obtenerParametroUrl('arrivalAirportCode');
-    var tipoCabina = obtenerParametroUrl('cabinType');
-    
-    // Mostrar los valores en los spans correspondientes
-    document.getElementById('origen').textContent = " " + origen;
-    document.getElementById('destino').textContent = " " + destino;
-    document.getElementById('tipoCabina').textContent = " " + tipoCabina;
-});
+// Obtener referencias a los elemezntos <span> en tu HTML
+let origenSpan = document.getElementById('origen');
+let destinoSpan = document.getElementById('destino');
+let tipoCabinaSpan = document.getElementById('tipoCabina');
+let fechaSpan = document.getElementById('fecha');
+let numeroVueloSpan = document.getElementById('numeroVuelo');
+
+origenSpan.textContent = vuelo.routes;  
+tipoCabinaSpan.textContent = vuelo.businessSeats > 0 ? 'business' : 'economy';  
+fechaSpan.textContent = vuelo.date;  
+numeroVueloSpan.textContent = vuelo.flightNumber;  

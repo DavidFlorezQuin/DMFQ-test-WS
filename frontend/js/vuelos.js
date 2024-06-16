@@ -36,6 +36,11 @@ function loadData(){
     
         flights.forEach((item1) => {
             html += `<tr>
+            <th> 
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox"  onclick="infoVuelo(`+item1.id+`)" id="flexCheckIndeterminate">
+            </div>
+            </th>
             <td>`+ item1.departureAirportCode + `</td>
             <td>`+ item1.arrivalAirportCode + `</td>
             <td>`+ item1.departureDate + `</td>
@@ -108,35 +113,66 @@ function showTable() {
     const notRetorno = document.getElementById('notRetorno');
     const returnOutputData = document.getElementById('returnOutputData');
     const searchBotton = document.getElementById('searchBotton');
+    const btn = document.getElementById('btn-regreso');
 
 
     if (notRetorno.checked) {
         returnOutputData.classList.add('d-none');
+        btn.classList.remove('d-flex');
+        btn.classList.add('d-none');
         searchBotton.setAttribute('onclick', 'loadData()');
     } else {
         returnOutputData.classList.remove('d-none');
+        btn.classList.add('d-flex');
         searchBotton.setAttribute('onclick', 'buscarAmbosVuelos()');
     }
 }
 
-function buscarAmbosVuelos(){
-    loadData();
-    console.log("ejecutando segundo")
-    loadReturnData();
+// function buscarAmbosVuelos(){
+//     loadData();
+//     console.log("ejecutando segundo")
+//     loadReturnData();
+// }
+
+// document.getElementById('buscarVuelos').addEventListener('click', function() {
+//     var departureAirportCode = document.getElementById('departureAirportCode').value;
+//     var arrivalAirportCode = document.getElementById('arrivalAirportCode').value;
+//     var cabinType = document.getElementById('cabinType').value;
+//     var cabinType = document.getElementById('cabinType').value;
+
+//     var url = 'http://127.0.0.1:5500/reserva.html?' +
+//               'departureAirportCode=' + encodeURIComponent(departureAirportCode) +
+//               '&arrivalAirportCode=' + encodeURIComponent(arrivalAirportCode) +
+//               '&cabinType=' + encodeURIComponent(cabinType);
+
+//     window.location.href = url;
+// });
+
+
+function infoVuelo(id){
+  fetch('http://localhost:9000/amonic/v1/api/schedules/' + id, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return response.json();
+  })
+  .then(data => {
+    const datos = data.data;
+    
+    // Almacenar los datos en localStorage
+    localStorage.setItem('flightInfo', JSON.stringify(datos));
+    console.log('Datos del vuelo almacenados en localStorage:', datos);
+  })
+  .catch(error => {
+    console.error('Error en la solicitud:', error);
+  });
 }
 
-document.getElementById('buscarVuelos').addEventListener('click', function() {
-    // Obtener valores del formulario
-    var departureAirportCode = document.getElementById('departureAirportCode').value;
-    var arrivalAirportCode = document.getElementById('arrivalAirportCode').value;
-    var cabinType = document.getElementById('cabinType').value;
 
-    // Construir la URL con parámetros
-    var url = 'http://127.0.0.1:5500/reserva.html?' +
-              'departureAirportCode=' + encodeURIComponent(departureAirportCode) +
-              '&arrivalAirportCode=' + encodeURIComponent(arrivalAirportCode) +
-              '&cabinType=' + encodeURIComponent(cabinType);
 
-    // Redireccionar a la página reserva.html con los parámetros en la URL
-    window.location.href = url;
-});

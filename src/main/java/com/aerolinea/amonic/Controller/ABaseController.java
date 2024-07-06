@@ -38,6 +38,7 @@ public class ABaseController<T extends ABaseEntity, S extends IBaseService<T>> {
         }
     }
 
+
     /**
      * Retrieves an entity by its ID.
      * @param id The ID of the entity to retrieve.

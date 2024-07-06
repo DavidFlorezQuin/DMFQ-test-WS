@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Confirmación de Vuelos</title>
-    
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
+
 <body>
-    
+
     <div class="container mt-5 border">
 
         <div class="table-secondary my-5">
@@ -18,36 +21,71 @@
         </div>
 
         <p>Detalle de salida</p>
-        <div class="cointainer-text border d-flex gap-5 p-2 align-items-center">
-            <div class="bloq1 d-flex gap-2 ">
-                <p>Origen: </p>
-                <span id="origen"></span>
+        
+        <div class="cointainer-text border p-2">
+            <div class="row">
+                <div class="bloq1 col-4">
+                    <label>Origen: </label>
+                    <input type="text" disabled id="origen" class="w-100">
+                </div>
+                <div class="bloq1 col-4">
+                    <label>Destino: </label>
+                    <input type="text" disabled id="destino" class="w-100">
+                </div>
+                <div class="bloq1 col-4">
+                    <label>Numero de vuelo:</label>
+                    <input type="text" disabled id="numero" class="w-100">
+                </div>
             </div>
-            <div class="bloq2 d-flex gap-2">
-                <p>Destino: </p>
-                <span id="destino"></span>
+
+            <div class="row">
+                <div class="bloq1 col-4">
+                    <label>Fecha: </label>
+                    <input type="text" disabled id="fecha" class="w-100">
+                </div>
+                <div class="bloq1 col-4">
+                    <label>Hora: </label>
+                    <input type="text" disabled id="hora" class="w-100">
+                </div>
             </div>
-            <div class="bloq3 d-flex gap-2">
-                <p>Tipo de cabina: </p>
-                <span id="tipoCabina"></span>
+        </div>
+   
+
+        
+        <div class="cointainer-return d-none border mt-4 p-2">
+            <p>Detalle de salida</p>
+            <div class="row">
+                <div class="bloq1 col-4">
+                    <label>Origen: </label>
+                    <input type="text" disabled id="origen" class="w-100">
+                </div>
+                <div class="bloq1 col-4">
+                    <label>Destino: </label>
+                    <input type="text" disabled id="destino" class="w-100">
+                </div>
+                <div class="bloq1 col-4">
+                    <label>Numero de vuelo:</label>
+                    <input type="text" disabled id="numero" class="w-100">
+                </div>
             </div>
-            <div class="bloq4 d-flex gap-2">
-                <p>Fecha: </p>
-                <span id="fecha"></span>
-            </div>
-            <div class="bloq5 gap-2">
-                <p>Número de vuelo: </p>
-                <span id="numeroVuelo"></span>
+
+            <div class="row">
+                <div class="bloq1 col-4">
+                    <label>Fecha: </label>
+                    <input type="text" disabled id="fecha" class="w-100">
+                </div>
+                <div class="bloq1 col-4">
+                    <label>Hora: </label>
+                    <input type="text" disabled id="hora" class="w-100">
+                </div>
             </div>
         </div>
 
+        <p class="mt-5">Datos del pasajero</p>
+        <fieldset class="border p-5">
 
-            
-            <p class="mt-5">Datos del pasajero</p>
-            <fieldset class="border p-5">
-            
             <form id="vuelosFormulario">
-                
+
                 <div class="row">
 
                     <div class="col-4 d-flex gap-3 gap-3 align-items-center">
@@ -64,7 +102,7 @@
                         <label for="departureDate">Fecha nacimiento</label><br>
                         <input type="date" id="departureDate" name="departureDate" required><br><br>
                     </div>
-                 </div>
+                </div>
 
                 <div class="row mt-5">
 
@@ -86,7 +124,7 @@
                         <div class="col-4 d-flex gap-3 gap-3 align-items-center">
                             <label for="departureAirportCode">Foto</label><br>
                             <input type="file" id="departureAirportCode" name="departureAirportCode" required><br><br>
-                        </div> 
+                        </div>
                         <div class="col-3">
 
                             <button class="btn border" id="searchBotton" type="submit" onclick="loadData()">
@@ -95,63 +133,68 @@
                         </div>
                     </div>
                 </div>
-                
-<div class="col-12 d-flex justify-content-end">
 
-</div>
-    </form>
-</fieldset>
+                <div class="col-12 d-flex justify-content-end">
 
-<!-- TABLA VUELO DE SALIDA -->
-<div id="outputData">           
-</br>
-<table class="table table-hover border">
-    <p>Lista de pasajeros:</p>
-    <thead>
-        <tr class="table-secondary">
-            <th>Nombres</th>
-            <th>Apellidos</th>
-            <th>Fecha de nacimiento</th>
-            <th>Numero de pasaporte</th>
-            <th>País de pasaporte</th>
-            <th>Teléfono</th>
-            <th>Foto pasaporte</th>
-        </tr>
-    </thead>
-    <tbody id="resultData">
-    </tbody>
-</table>
-</div>
+                </div>
+            </form>
+        </fieldset>
 
-<!-- TABLA VUELOS REGRESO -->
+        <!-- TABLA VUELO DE SALIDA -->
+        <div id="outputData">
+            </br>
+            <table class="table table-hover border">
+                <p>Lista de pasajeros:</p>
+                <thead>
+                    <tr class="table-secondary">
+                        <th>Nombres</th>
+                        <th>Apellidos</th>
+                        <th>Fecha de nacimiento</th>
+                        <th>Numero de pasaporte</th>
+                        <th>País de pasaporte</th>
+                        <th>Teléfono</th>
+                        <th>Foto pasaporte</th>
+                    </tr>
+                </thead>
+                <tbody id="resultData">
+                </tbody>
+            </table>
+        </div>
 
-<div id="returnOutputData" class="d-none">           
-</br>
-<table class="table table-hover border">
-    <p>Detalle de vuelos de regreso:</p>
-    <thead>
-        <tr class="table-secondary">
-            <th>Origen</th>
-            <th>Destino</th>
-            <th>Fecha</th>
-            <th>Hora</th>
-            <th>Numero de vuelo</th>
-            <th>Precio de Cabina</th>
-        </tr>
-    </thead>
-    <tbody id="resultDataReturn">
-    </tbody>
-</table>
-</div>
+        <!-- TABLA VUELOS REGRESO -->
+
+        <div id="returnOutputData" class="d-none">
+            </br>
+            <table class="table table-hover border">
+                <p>Detalle de vuelos de regreso:</p>
+                <thead>
+                    <tr class="table-secondary">
+                        <th>Origen</th>
+                        <th>Destino</th>
+                        <th>Fecha</th>
+                        <th>Hora</th>
+                        <th>Numero de vuelo</th>
+                        <th>Precio de Cabina</th>
+                    </tr>
+                </thead>
+                <tbody id="resultDataReturn">
+                </tbody>
+            </table>
+        </div>
 
 
-</div>
+    </div>
 
-<script src="./js/reserva.js"></script>
-<script>
-    loadData()
-</script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.3/jquery-ui.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <script src="./js/reserva.js"></script>
+    <script>
+        dataVueloIda()
+    </script>
 
 </body>
+
 </html>

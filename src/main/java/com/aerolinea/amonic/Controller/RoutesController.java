@@ -1,10 +1,13 @@
 package com.aerolinea.amonic.Controller;
 
+import com.aerolinea.amonic.Dto.ApiResponseDto;
+import com.aerolinea.amonic.Dto.BuscarRutas;
 import com.aerolinea.amonic.Entity.Routes;
 import com.aerolinea.amonic.IService.IRoutesService;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -18,4 +21,6 @@ public class RoutesController extends ABaseController<Routes, IRoutesService> {
     protected RoutesController(IRoutesService service) {
         super(service, "routes");
     }
+
+
 }

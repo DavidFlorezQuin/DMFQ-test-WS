@@ -1,14 +1,37 @@
-// Recuperar el objeto guardado en localStorage
-let vuelo = JSON.parse(localStorage.getItem('vuelo'));
 
-// Obtener referencias a los elemezntos <span> en tu HTML
-let origenSpan = document.getElementById('origen');
-let destinoSpan = document.getElementById('destino');
-let tipoCabinaSpan = document.getElementById('tipoCabina');
-let fechaSpan = document.getElementById('fecha');
-let numeroVueloSpan = document.getElementById('numeroVuelo');
+function dataVueloIda(){
 
-origenSpan.textContent = vuelo.routes;  
-tipoCabinaSpan.textContent = vuelo.businessSeats > 0 ? 'business' : 'economy';  
-fechaSpan.textContent = vuelo.date;  
-numeroVueloSpan.textContent = vuelo.flightNumber;  
+    var ValidarVueloIda = localStorage.getItem('vueloIda');
+    
+    if (ValidarVueloIda) {
+
+        var dataIda = JSON.parse(ValidarVueloIda);
+        
+        console.log(dataIda)
+        $('#origen').val(dataIda.origenAeropuerto);
+        $('#destino').val(dataIda.destinoAeropuerto);
+        $('#numero').val(dataIda.flightNumber);
+        $('#fecha').val(dataIda.date);
+        $('#hora').val(dataIda.time);
+    }
+}
+
+function dataReturn(){
+
+    var ValidarReturn = localStorage.getItem('vueloReturn');
+    
+    if(ValidarReturn){
+        const returnContainer = document.getElementById('cointainer-return')
+
+        returnContainer.classList.remove('d-none')
+        returnContainer.classList.add('d-flex')
+        
+    }
+}
+
+$(document).ready(function() {
+    dataVueloIda();
+    dataReturn();
+});
+
+

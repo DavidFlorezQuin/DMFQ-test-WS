@@ -2,6 +2,12 @@ var ValidarReturn = localStorage.getItem('vueloReturn');
 var ValidarVueloIda = localStorage.getItem('vueloIda');
 var DataInfo = localStorage.getItem('dataAsiento');
 
+
+var dataAsiento = JSON.parse(DataInfo);
+var numTickets = parseInt(dataAsiento.tickets);
+var tipoAsiento = parseInt(dataAsiento.asientos);
+
+
 $(document).ready(function () {
     dataVueloIda();
     dataReturn();
@@ -41,10 +47,6 @@ function dataReturn() {
     }
 }
 
-var dataAsiento = JSON.parse(DataInfo);
-
-var numTickets = parseInt(dataAsiento.tickets);
-
 function dataTickets() {
 
     if (DataInfo) {
@@ -61,10 +63,9 @@ let pasajeros = [];
 function agregarPasajeros() {
 
 
-var num = 2; 
-    if (num != 0) {
+    if (numTickets != 0) {
 
-        num--;
+        numTickets--;
 
         let pasajero = {
 
@@ -103,8 +104,8 @@ var num = 2;
         });
 
         $("#resultData").html(html);
-        
-        // $('#register').text(numTickets);
+
+         $('#register').text(numTickets);
     }
     else {
         alert("compra más")
@@ -134,41 +135,39 @@ function listaPaises() {
 
 function enviarTicketes() {
 
-    var nombre = $('#nombre').val()
-    var apellido = $('#apellido').val()
-    var pasaporte = $('#pasaporte').val()
-    var paises = $('#paises').val()
-    var telefono = $('#telefono').val()
-    var correo = $('#correo').val()
+    
+    pasajeros.forEach(function(pasajero){
+
+    
+        var datos = {
+            state: true,
+            bookingReference: "ADA1",
+            confirmed: "YES",
+            email: pasajero.correo,
+            firstName: pasajero.nombre,
+            lastName: pasajero.apellido,
+            passportNumber: pasajero.pasaporte,
+            passportPhoto: pasajero.foto,
+            phone: pasajero.telefono,
+            cabinTypesId: {
+                id: tipoAsiento
+            },
+            passportCountryId: {
+                id: pasajero.pais
+            },
+            schedulesId: {
+                id: 1
+            },
+            userId: {
+                id: 1
+            }
+        };
 
 
-    var datos = {
-        state: true,
-        bookingReference: "ADA1",
-        confirmed: "YES",
-        email: correo,
-        firstName: nombre,
-        lastName: apellido,
-        passportNumber: pasaporte,
-        passportPhoto: "xxx",
-        phone: telefono,
-        cabinTypesId: {
-            id: 1
-        },
-        passportCountryId: {
-            id: paises
-        },
-        schedulesId: {
-            id: 1
-        },
-        userId: {
-            id: 1
-        }
-    }
     $.ajax({
         url: "http://localhost:9000/amonic/v1/api/tickets",
         method: "POST",
-        contentType: 'aplicaction/json',
+        contentType: 'application/json',
         data: JSON.stringify(datos),
         success: function (response) {
             alert("exitos")
@@ -179,5 +178,6 @@ function enviarTicketes() {
             console.log(error)
         }
     })
+});
 
 }

@@ -14,14 +14,14 @@
 
 <body>
 
-    <div class="container mt-5 border">
+    <div class="container my-5 border">
 
         <div class="table-secondary my-5">
             <h3 class="p-2">Confirmación de la reserva</h3>
         </div>
 
         <p>Detalle de salida</p>
-        
+
         <div class="cointainer-text border p-2">
             <div class="row">
                 <div class="bloq1 col-4">
@@ -49,85 +49,91 @@
                 </div>
             </div>
         </div>
-   
 
-        
-        <div class="cointainer-return d-none border mt-4 p-2">
-            <p>Detalle de salida</p>
+
+
+        <div id="cointainer-return" class="d-none border mt-4 p-2">
+            <p>Detalle de vuelta</p>
             <div class="row">
                 <div class="bloq1 col-4">
                     <label>Origen: </label>
-                    <input type="text" disabled id="origen" class="w-100">
+                    <input type="text" disabled id="origenReturn" class="w-100">
                 </div>
                 <div class="bloq1 col-4">
                     <label>Destino: </label>
-                    <input type="text" disabled id="destino" class="w-100">
+                    <input type="text" disabled id="destinoReturn" class="w-100">
                 </div>
                 <div class="bloq1 col-4">
                     <label>Numero de vuelo:</label>
-                    <input type="text" disabled id="numero" class="w-100">
+                    <input type="text" disabled id="numeroReturn" class="w-100">
                 </div>
             </div>
 
             <div class="row">
                 <div class="bloq1 col-4">
                     <label>Fecha: </label>
-                    <input type="text" disabled id="fecha" class="w-100">
+                    <input type="text" disabled id="fechaReturn" class="w-100">
                 </div>
                 <div class="bloq1 col-4">
                     <label>Hora: </label>
-                    <input type="text" disabled id="hora" class="w-100">
+                    <input type="text" disabled id="horaReturn" class="w-100">
                 </div>
             </div>
         </div>
 
         <p class="mt-5">Datos del pasajero</p>
+        <section class="d-flex gap-3 align-items-center">
+            <h3>Numero Pasajeros :</h3>
+            <div class="bg-danger">
+                <span id="tickets" class="font-weight-bold text-lg p-4 text-white rounded-5"></span>
+            </div>
+        </section>
         <fieldset class="border p-5">
 
             <form id="vuelosFormulario">
 
                 <div class="row">
-
                     <div class="col-4 d-flex gap-3 gap-3 align-items-center">
-                        <label for="departureAirportCode">Nombres</label><br>
-                        <input type="text" id="departureAirportCode" name="departureAirportCode" required><br><br>
+                        <label for="nombre">Nombres</label><br>
+                        <input type="text" id="nombre" name="nombre" required><br><br>
                     </div>
 
                     <div class="col-4 d-flex gap-3 align-items-center">
-                        <label for="arrivalAirportCode">Apellido</label><br>
-                        <input type="text" id="arrivalAirportCode" name="arrivalAirportCode" required><br><br>
+                        <label for="apellido">Apellido</label><br>
+                        <input type="text" id="apellido" name="apellido" required><br><br>
                     </div>
 
                     <div class="col-4 d-flex gap-3 align-items-center">
-                        <label for="departureDate">Fecha nacimiento</label><br>
-                        <input type="date" id="departureDate" name="departureDate" required><br><br>
+                        <label for="correo">Correo</label><br>
+                        <input type="text" id="correo" name="correo" required><br><br>
                     </div>
                 </div>
 
                 <div class="row mt-5">
 
                     <div class="col-4 d-flex gap-3 gap-3 align-items-center">
-                        <label for="departureAirportCode">Numero de pasaporte</label><br>
-                        <input type="text" id="departureAirportCode" name="departureAirportCode" required><br><br>
+                        <label for="pasaporte">Numero de pasaporte</label><br>
+                        <input type="text" id="pasaporte" name="pasaporte" required><br><br>
                     </div>
                     <div class="col-4 d-flex gap-3 gap-3 align-items-center">
-                        <label for="departureAirportCode">País pasaporte</label><br>
-                        <input type="text" id="departureAirportCode" name="departureAirportCode" required><br><br>
+                        <label for="paises">País pasaporte</label><br>
+                        <select class="w-100" type="text" id="paises" name="paises" required><br><br>
+                        </select>
                     </div>
                     <div class="col-4 d-flex gap-3 gap-3 align-items-center">
-                        <label for="departureAirportCode">Teléfono</label><br>
-                        <input type="text" id="departureAirportCode" name="departureAirportCode" required><br><br>
+                        <label for="telefono">Teléfono</label><br>
+                        <input type="text" id="telefono" name="telefono" required><br><br>
                     </div>
 
                     <div class="row mt-5 d-flex justify-content-between">
 
                         <div class="col-4 d-flex gap-3 gap-3 align-items-center">
-                            <label for="departureAirportCode">Foto</label><br>
-                            <input type="file" id="departureAirportCode" name="departureAirportCode" required><br><br>
+                            <label for="foto">Foto</label><br>
+                            <input type="file" id="foto" name="foto"><br><br>
                         </div>
                         <div class="col-3">
 
-                            <button class="btn border" id="searchBotton" type="submit" onclick="loadData()">
+                            <button class="btn border" type="button" onclick="agregarPasajeros()">
                                 Agregar pasajeros
                             </button>
                         </div>
@@ -143,6 +149,12 @@
         <!-- TABLA VUELO DE SALIDA -->
         <div id="outputData">
             </br>
+            <section class="d-flex gap-3 align-items-center">
+                <h3>Disponibles :</h3>
+                <div class="bg-danger">
+                    <span id="register" class="font-weight-bold text-lg p-4 text-white rounded-5"></span>
+                </div>
+            </section>
             <table class="table table-hover border">
                 <p>Lista de pasajeros:</p>
                 <thead>
@@ -161,26 +173,10 @@
             </table>
         </div>
 
-        <!-- TABLA VUELOS REGRESO -->
 
-        <div id="returnOutputData" class="d-none">
-            </br>
-            <table class="table table-hover border">
-                <p>Detalle de vuelos de regreso:</p>
-                <thead>
-                    <tr class="table-secondary">
-                        <th>Origen</th>
-                        <th>Destino</th>
-                        <th>Fecha</th>
-                        <th>Hora</th>
-                        <th>Numero de vuelo</th>
-                        <th>Precio de Cabina</th>
-                    </tr>
-                </thead>
-                <tbody id="resultDataReturn">
-                </tbody>
-            </table>
-        </div>
+            <button class="btn btn-success border " type="button" onclick="enviarTicketes()">
+                confirmar ticket
+            </button>
 
 
     </div>

@@ -1,24 +1,24 @@
 
-var origenID; 
+var origenID;
 var destinoID;
 
 
-function autoComplete(){
+function autoComplete() {
     $.ajax({
         url: "http://localhost:9000/amonic/v1/api/airpots",
         method: "GET",
         dataType: "json",
-        success: function (response){
+        success: function (response) {
             var data = response.data;
             var autocomplete = []
 
-            data.forEach(function (item){
+            data.forEach(function (item) {
                 autocomplete.push({ label: item.name, value: item.id });
             });
 
             $("#origen").autocomplete({
                 source: autocomplete,
-                select: function(event, ui) {
+                select: function (event, ui) {
                     $(this).val(ui.item.label);
                     origenID = ui.item.value
                     return false;
@@ -27,7 +27,7 @@ function autoComplete(){
 
             $("#destino").autocomplete({
                 source: autocomplete,
-                select: function(event, ui) {
+                select: function (event, ui) {
                     $(this).val(ui.item.label);
                     destinoID = ui.item.value
                     return false;
@@ -35,7 +35,7 @@ function autoComplete(){
             })
 
         },
-        error: function(error) {
+        error: function (error) {
             console.error(error);
         }
     });
@@ -44,7 +44,6 @@ function autoComplete(){
 function showTable() {
     const notRetorno = document.getElementById('notRetorno');
     const returnOutputData = document.getElementById('returnOutputData');
-    const searchBotton = document.getElementById('searchBotton');
     const btn = document.getElementById('btn-regreso');
 
 
@@ -61,7 +60,7 @@ function showTable() {
 }
 
 
-function envioFormulario(){
+function envioFormulario() {
 
     const notRetorno = document.getElementById('notRetorno');
 
@@ -74,8 +73,8 @@ function envioFormulario(){
 }
 
 
-function vueloIda(){
-    
+function vueloIda() {
+
     var inicioInput = $('#inicio').val();
 
     var datos = {
@@ -92,9 +91,9 @@ function vueloIda(){
         dataType: "json",
         contentType: "application/json",
         data: datosJson,
-        success: function(response) {
+        success: function (response) {
             var html = ``;
-            response.data.forEach(function(item, index) {
+            response.data.forEach(function (item, index) {
                 html += `<tr id="row-${index}">
                     <td>${item.origenAeropuerto}</td>
                     <td>${item.destinoAeropuerto}</td>
@@ -105,36 +104,34 @@ function vueloIda(){
 
             });
 
-        $("#tablaData").html(html);
-        response.data.forEach(function(item, index) {
+            $("#tablaData").html(html);
+            response.data.forEach(function (item, index) {
 
-            document.getElementById(`row-${index}`).addEventListener('click', function() {
-                if (this.classList.contains('table-active')) {
-                    this.classList.remove('table-active');
-                } else {
-                    document.querySelectorAll('tr').forEach(row => {
-                        this.classList.add('table-active');
-                    });
-                }
+                document.getElementById(`row-${index}`).addEventListener('click', function () {
+                    if (this.classList.contains('table-active')) {
+                        this.classList.remove('table-active');
+                    } else {
+                        document.querySelectorAll('tr').forEach(row => {
+                            this.classList.add('table-active');
+                        });
+                    }
 
-                const data = {
-                    origenAeropuerto: item.origenAeropuerto,
-                    destinoAeropuerto: item.destinoAeropuerto,
-                    flightNumber: item.flightNumber,
-                    date: item.date,
-                    time: item.time
-                };
+                    const data = {
+                        origenAeropuerto: item.origenAeropuerto,
+                        destinoAeropuerto: item.destinoAeropuerto,
+                        flightNumber: item.flightNumber,
+                        date: item.date,
+                        time: item.time
+                    };
 
-                console.log(JSON.stringify(data));
-                localStorage.setItem('vueloIda', JSON.stringify(data));
+                    localStorage.setItem('vueloIda', JSON.stringify(data));
 
-
+                });
             });
-        });
 
 
-        }, 
-        error: function(xhr, status, error) {
+        },
+        error: function (xhr, status, error) {
             console.error("Error en la solicitud:", error);
         }
     })
@@ -159,9 +156,9 @@ function vueloRetorno() {
         dataType: "json",
         contentType: "application/json",
         data: datosJsonRetorno,
-        success: function(response) {
+        success: function (response) {
             var html = ``;
-            response.data.forEach(function(item, index) {
+            response.data.forEach(function (item, index) {
                 html += `<tr id="row-${index}">
                     <td>${item.origenAeropuerto}</td>
                     <td>${item.destinoAeropuerto}</td>
@@ -173,9 +170,9 @@ function vueloRetorno() {
 
             $("#tablaDataRetorno").html(html);
 
-            response.data.forEach(function(item, index) {
+            response.data.forEach(function (item, index) {
 
-                document.getElementById(`row-${index}`).addEventListener('click', function() {
+                document.getElementById(`row-${index}`).addEventListener('click', function () {
                     if (this.classList.contains('table-active')) {
                         this.classList.remove('table-active');
                     } else {
@@ -198,9 +195,28 @@ function vueloRetorno() {
             });
 
         },
-        error: function(xhr, status, error) {
+        error: function (xhr, status, error) {
             console.error("Error en la solicitud:", error);
         }
     });
 
+}
+
+function almacenarPuestos() {
+    var tickets = $('#tickets').val();
+    var asiento = $('#cabinType').val();
+
+    if (tickets.trim() !== '') {
+
+        var dataAsiento = {
+            tickets: tickets, 
+            asientos: asiento
+        }
+        localStorage.setItem('dataAsiento', JSON.stringify(dataAsiento));
+
+        // localStorage.setItem('tickets', tickets);
+        window.location.href = 'http://127.0.0.1:5500/reserva.html';
+    } else {
+        alert('Por favor ingrese un dato válido');
+    }
 }

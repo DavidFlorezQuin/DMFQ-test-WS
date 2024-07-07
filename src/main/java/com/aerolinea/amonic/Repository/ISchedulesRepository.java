@@ -34,6 +34,7 @@ public interface ISchedulesRepository extends IBaseRepository<Schedules, Long> {
                                     @Param("fin") LocalDate fin);
 
     @Query(value = "SELECT " +
+            "s.id, " +
             "a1.name AS origenAeropuerto, " +
             "a2.name AS destinoAeropuerto, " +
             "s.date AS date, " +

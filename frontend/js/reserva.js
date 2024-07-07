@@ -3,7 +3,9 @@ var ValidarVueloIda = localStorage.getItem('vueloIda');
 var DataInfo = localStorage.getItem('dataAsiento');
 
 
+var dataIda = JSON.parse(ValidarVueloIda);
 var dataAsiento = JSON.parse(DataInfo);
+
 var numTickets = parseInt(dataAsiento.tickets);
 var tipoAsiento = parseInt(dataAsiento.asientos);
 
@@ -20,7 +22,6 @@ function dataVueloIda() {
 
     if (ValidarVueloIda) {
 
-        var dataIda = JSON.parse(ValidarVueloIda);
 
         console.log(dataIda)
         $('#origen').val(dataIda.origenAeropuerto);
@@ -108,7 +109,12 @@ function agregarPasajeros() {
          $('#register').text(numTickets);
     }
     else {
-        alert("compra más")
+        Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "No puedes agregar más pasajeros!",
+            footer: '<a href="../routes.html">Comprar más tickets</a>'
+          });
     }
 
 }
@@ -156,7 +162,7 @@ function enviarTicketes() {
                 id: pasajero.pais
             },
             schedulesId: {
-                id: 1
+                id: dataIda.id
             },
             userId: {
                 id: 1

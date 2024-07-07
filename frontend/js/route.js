@@ -121,7 +121,8 @@ function vueloIda() {
                         destinoAeropuerto: item.destinoAeropuerto,
                         flightNumber: item.flightNumber,
                         date: item.date,
-                        time: item.time
+                        time: item.time,
+                        id: item.id
                     };
 
                     localStorage.setItem('vueloIda', JSON.stringify(data));
@@ -186,7 +187,8 @@ function vueloRetorno() {
                         destinoAeropuerto: item.destinoAeropuerto,
                         flightNumber: item.flightNumber,
                         date: item.date,
-                        time: item.time
+                        time: item.time,
+                        id: item.id
                     };
                     localStorage.setItem('vueloReturn', JSON.stringify(dataReturn));
 
@@ -217,6 +219,10 @@ function almacenarPuestos() {
         // localStorage.setItem('tickets', tickets);
         window.location.href = 'http://127.0.0.1:5500/reserva.html';
     } else {
-        alert('Por favor ingrese un dato válido');
+        Swal.fire({
+            icon: "info",
+            title: "Oops...",
+            text: "Indicanos cuantos ticketes deseas!",
+          });
     }
 }

@@ -176,8 +176,11 @@ function enviarTicketes() {
         contentType: 'application/json',
         data: JSON.stringify(datos),
         success: function (response) {
-            alert("exitos")
-            console.log('Respuesta del servidor:', response);
+            Swal.fire({
+                title: "Buen viaje!",
+                text: "Tickete exitosamente registrado!",
+                icon: "success"
+              });
 
         },
         error: function (error) {

@@ -11,11 +11,32 @@ import java.util.List;
 
 @Repository
 public interface ISchedulesRepository extends IBaseRepository<Schedules, Long> {
+<<<<<<< HEAD
     @Query(value = "SELECT " +
             "a1.name AS origenAeropuerto, " +
             "a2.name AS destinoAeropuerto, " +
             "s.date AS date, " +
             "s.time AS time, " +
+=======
+
+       /* @Query("SELECT s FROM Schedule s " +
+                "JOIN s.aircraft ac " +
+                "JOIN s.route rt " +
+                "JOIN rt.departureAirport d_airport " +
+                "JOIN rt.arrivalAirport a_airport " +
+                "JOIN s.cabinType c_type " +
+                "WHERE d_airport.name = :origin " +
+                "AND a_airport.name = :destination " +
+                "AND c_type.name = :cabinType " +
+                "AND s.date BETWEEN :startDate AND :endDate " +
+                "AND s.state = true " +
+                "ORDER BY s.date, s.time")
+        List<ScheduleDto> findFlightsByCriteria(String origin, String destination, String cabinType, Date startDate, Date endDate);
+*/
+
+
+    @Query(value = "SELECT " +
+>>>>>>> parent of 665c477 (ultimo git)
             "s.flight_number AS flightNumber, " +
             "s.economy_price AS economyPrice " +
             "FROM schedules s " +
@@ -33,6 +54,7 @@ public interface ISchedulesRepository extends IBaseRepository<Schedules, Long> {
                                     @Param("inicio") LocalDate inicio,
                                     @Param("fin") LocalDate fin);
 
+<<<<<<< HEAD
     @Query(value = "SELECT " +
             "s.id, " +
             "a1.name AS origenAeropuerto, " +
@@ -53,5 +75,10 @@ public interface ISchedulesRepository extends IBaseRepository<Schedules, Long> {
                                     @Param("destino") Integer destino,
                                     @Param("fecha") LocalDate fecha);
 }
+=======
+
+
+    }
+>>>>>>> parent of 665c477 (ultimo git)
 
 

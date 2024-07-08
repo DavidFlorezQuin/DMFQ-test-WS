@@ -1,8 +1,11 @@
 package com.aerolinea.amonic.Service;
 
 import com.aerolinea.amonic.Dto.ScheduleDto;
+<<<<<<< HEAD
 import com.aerolinea.amonic.Dto.ScheduleFilter;
 import com.aerolinea.amonic.Dto.ScheduleFilterFlight;
+=======
+>>>>>>> parent of 665c477 (ultimo git)
 import com.aerolinea.amonic.Entity.Schedules;
 import com.aerolinea.amonic.IService.ISchedulesService;
 import com.aerolinea.amonic.Repository.IBaseRepository;
@@ -36,6 +39,7 @@ public class ScheduleService extends ABaseService<Schedules> implements ISchedul
         return repository.getListFlight(origen, destino, inicio, fin);
     }
 
+<<<<<<< HEAD
     @Override
     public List<ScheduleDto> buscarRutasEspecificas(ScheduleFilterFlight scheduleFilterFlight) {
         Integer origen = scheduleFilterFlight.getOrigen();
@@ -43,4 +47,12 @@ public class ScheduleService extends ABaseService<Schedules> implements ISchedul
         LocalDate fecha = scheduleFilterFlight.getFecha();
         return repository.getListSpecificFlight(origen, destino, fecha);
     }
+=======
+   /* @Override
+    public List<ScheduleDto> findFlightsByCriteria(String origin, String destination, String cabinType, Date startDate, Date endDate) {
+        return repository.findFlightsByCriteria(origin, destination, cabinType, startDate, endDate);
+    }
+
+    */
+>>>>>>> parent of 665c477 (ultimo git)
 }

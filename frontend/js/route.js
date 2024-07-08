@@ -2,6 +2,10 @@
 var origenID;
 var destinoID;
 
+$(document).ready( function () {
+    $('#miTabla').DataTable();
+    $('#miTabla2').DataTable();
+} );
 
 function autoComplete() {
     $.ajax({

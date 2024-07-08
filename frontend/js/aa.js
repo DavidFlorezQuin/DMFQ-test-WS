@@ -1,5 +1,3 @@
-
-$(document).ready(function(){
-            
-    $('#example').DataTable();
-});
+$(document).ready( function () {
+    $('#miTabla').DataTable();
+} );

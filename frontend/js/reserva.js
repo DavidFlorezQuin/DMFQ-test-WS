@@ -177,11 +177,17 @@ function enviarTicketes() {
         data: JSON.stringify(datos),
         success: function (response) {
             Swal.fire({
-                title: "Buen viaje!",
+                title: "Buen v  iaje!",
                 text: "Tickete exitosamente registrado!",
                 icon: "success"
-              });
-
+              }).then((result) => {
+                if (result.isConfirmed) {
+                    localStorage.removeItem('vueloReturn'); 
+                    localStorage.removeItem('vueloIda'); 
+                    localStorage.removeItem('dataAsiento'); 
+                    window.location.href = "http://127.0.0.1:5500/routes.html"; // Reemplaza con la URL a la que quieres redireccionar
+                }
+            });
         },
         error: function (error) {
             console.log(error)

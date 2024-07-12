@@ -209,7 +209,6 @@ function vueloRetorno() {
 }
 
 function almacenarPuestos(){
-
     var tickets = $('#tickets').val();
     var tipoSilla = $('#cabinType').val();
     var ValidarVueloIda = localStorage.getItem('vueloIda');

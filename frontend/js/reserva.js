@@ -139,11 +139,12 @@ function listaPaises() {
     })
 }
 
+
 function enviarTicketes() {
+    var ticketsGuardados = 0;
+    var totalTickets = pasajeros.length;
 
-    
     pasajeros.forEach(function(pasajero){
-
         var datos = {
             state: true,
             bookingReference: "ADA1",
@@ -168,32 +169,53 @@ function enviarTicketes() {
             }
         };
 
-    $.ajax({
-        url: "http://localhost:9000/amonic/v1/api/tickets",
-        method: "POST",
-        contentType: 'application/json',
-        data: JSON.stringify(datos),
-        success: function (response) {
-            Swal.fire({
-                title: "Buen Viaje!",
-                text: "Tickete exitosamente registrado!",
-                icon: "success"
-              }).then((result) => {
-                if (result.isConfirmed) {
-                    localStorage.removeItem('vueloReturn'); 
-                    localStorage.removeItem('vueloIda'); 
-                    localStorage.removeItem('dataAsiento'); 
-                    window.location.href = "http://127.0.0.1:5500/routes.html"; 
+        $.ajax({
+            url: "http://localhost:9000/amonic/v1/api/tickets",
+            method: "POST",
+            contentType: 'application/json',
+            data: JSON.stringify(datos),
+            success: function (response) {
+                ticketsGuardados++;
+
+                if (ticketsGuardados === totalTickets) {
+                    actualizarEstadoAvion(dataIda.id);
                 }
-            });
+
+                Swal.fire({
+                    title: "Buen Viaje!",
+                    text: "Tickete exitosamente registrado!",
+                    icon: "success"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        localStorage.removeItem('vueloReturn'); 
+                        localStorage.removeItem('vueloIda'); 
+                        localStorage.removeItem('dataAsiento'); 
+                        window.location.href = "http://127.0.0.1:5500/routes.html"; 
+                    }
+                });
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    });
+}
+
+function actualizarEstadoAvion(scheduleId) {
+    $.ajax({
+        url: "http://localhost:9000/amonic/v1/api/tickets/estado-vuelo",
+        method: "PUT",
+        contentType: 'application/json',
+        data: JSON.stringify({ scheduleId: scheduleId }),
+        success: function (response) {
+            console.log("Estado del avión actualizado exitosamente.");
         },
         error: function (error) {
-            console.log(error)
+            console.log("Error actualizando el estado del avión:", error);
         }
-    })
-});
-
+    });
 }
+
 
 function cargarDataVuelo(){
 

@@ -208,25 +208,70 @@ function vueloRetorno() {
 
 }
 
-function almacenarPuestos() {
+function almacenarPuestos(){
+
     var tickets = $('#tickets').val();
-    var asiento = $('#cabinType').val();
+    var tipoSilla = $('#cabinType').val();
+    var ValidarVueloIda = localStorage.getItem('vueloIda');
+    var dataIda = JSON.parse(ValidarVueloIda);
+    var id = dataIda.id
+    
 
-    if (tickets.trim() !== '') {
-
-        var dataAsiento = {
-            tickets: tickets, 
-            asientos: asiento
-        }
-        localStorage.setItem('dataAsiento', JSON.stringify(dataAsiento));
-
-        // localStorage.setItem('tickets', tickets);
-        window.location.href = 'http://127.0.0.1:5500/reserva.html';
-    } else {
-        Swal.fire({
-            icon: "info",
-            title: "Oops...",
-            text: "Indicanos cuantos ticketes deseas!",
-          });
+    datosJson = {
+        id: id,
+        ticketsComprar: tickets,
+        silla: tipoSilla
     }
+
+    var datos = JSON.stringify(datosJson);
+
+
+    $.ajax({
+        url: "http://localhost:9000/amonic/v1/api/tickets/consultaSillas",
+        method: "POST",
+        dataType: "json",
+        contentType: "application/json",
+        data: datos,
+        success: function (response) {
+            var tickets = $('#tickets').val();
+
+            var data = response.data;
+
+            if (data.disponible > tickets){
+
+                var tickets = $('#tickets').val();
+                var asiento = $('#cabinType').val();
+            
+                if (tickets.trim() !== '') {
+            
+                    var dataAsiento = {
+                        tickets: tickets, 
+                        asientos: asiento
+                    }
+                    localStorage.setItem('dataAsiento', JSON.stringify(dataAsiento));
+            
+                    window.location.href = 'http://127.0.0.1:5500/reserva.html';
+                } else {
+                    Swal.fire({
+                        icon: "info",
+                        title: "Oops...",
+                        text: "Indicanos cuantos ticketes deseas!",
+                      });
+                }
+            } else{
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "Ticketes sobre pasados, la cantidad disponible es: "+data.disponible ,
+                    footer: 'Puedes comprar otra categoría'
+                  });
+            }
+
+            console.log(response);
+
+        },
+        error: function (error) {
+            console.log(error)
+        }
+    })
 }

@@ -144,7 +144,6 @@ function enviarTicketes() {
     
     pasajeros.forEach(function(pasajero){
 
-    
         var datos = {
             state: true,
             bookingReference: "ADA1",
@@ -169,7 +168,6 @@ function enviarTicketes() {
             }
         };
 
-
     $.ajax({
         url: "http://localhost:9000/amonic/v1/api/tickets",
         method: "POST",
@@ -177,7 +175,7 @@ function enviarTicketes() {
         data: JSON.stringify(datos),
         success: function (response) {
             Swal.fire({
-                title: "Buen v  iaje!",
+                title: "Buen Viaje!",
                 text: "Tickete exitosamente registrado!",
                 icon: "success"
               }).then((result) => {
@@ -185,7 +183,7 @@ function enviarTicketes() {
                     localStorage.removeItem('vueloReturn'); 
                     localStorage.removeItem('vueloIda'); 
                     localStorage.removeItem('dataAsiento'); 
-                    window.location.href = "http://127.0.0.1:5500/routes.html"; // Reemplaza con la URL a la que quieres redireccionar
+                    window.location.href = "http://127.0.0.1:5500/routes.html"; 
                 }
             });
         },
@@ -194,5 +192,39 @@ function enviarTicketes() {
         }
     })
 });
+
+}
+
+function cargarDataVuelo(){
+
+    var factura = {
+        tickets: parseInt(dataAsiento.tickets),
+        silla: tipoAsiento,
+        vuelo: dataIda.id
+    }
+
+    $.ajax({
+        url: "http://localhost:9000/amonic/v1/api/tickets/facturacion",
+        method: "POST",
+        contentType: 'application/json',
+        data: JSON.stringify(factura),
+        success: function (response) {
+
+            datos = response.data 
+
+            $("#origenFactura").text(dataIda.origenAeropuerto);
+            $("#destinoFactura").text(dataIda.destinoAeropuerto);
+            $("#horaFactura").text(dataIda.time);
+            $("#ticketFactura").text(parseInt(dataAsiento.tickets));
+            $("#precioUnitario").text(datos.precioUnitario);
+            $("#precioFactura").text(datos.precioTotal);
+
+        },
+        error: function (error) {
+            console.log(error)
+        }
+    })    
+
+
 
 }

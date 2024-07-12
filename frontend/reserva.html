@@ -175,12 +175,41 @@
         </div>
 
 
-        <button class="btn btn-success border " type="button" onclick="enviarTicketes()">
+        <!-- <button class="btn btn-success border " type="button" onclick="enviarTicketes()">
+            confirmar ticket
+        </button> -->
+        <button class="btn btn-success border" onclick="cargarDataVuelo()" type="button"data-bs-toggle="modal" data-bs-target="#exampleModal" >
             confirmar ticket
         </button>
 
 
     </div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title" id="exampleModalLabel">Factura</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <h4>Origen: <span id="origenFactura" class="font-weight-lighter"></span>  </h4> 
+          <h4>Destino: <span id="destinoFactura" class="font-weight-lighter"></span></h4> 
+          <h4>hora: <span id="horaFactura" class="font-weight-lighter"></span></h4> 
+          <h4>Ticketes: <span id="ticketFactura" class="font-weight-lighter"></span></h4> 
+          <h4>Precio unitario: <span id="precioUnitario" class="font-weight-lighter"></span></h4> 
+          <h4>Precio total: <span id="precioFactura" class="font-weight-lighter"></span></h4> 
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-success" onclick="enviarTicketes()">Confirmar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
     <script src="https://code.jquery.com/ui/1.13.3/jquery-ui.js"></script>

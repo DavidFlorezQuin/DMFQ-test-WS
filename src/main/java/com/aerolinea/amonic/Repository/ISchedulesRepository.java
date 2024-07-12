@@ -25,7 +25,8 @@ public interface ISchedulesRepository extends IBaseRepository<Schedules, Long> {
             "JOIN cabin_types c ON t.cabin_type_id = c.id " +
             "WHERE (:origen IS NULL OR r.departure_airport_id = :origen) " +
             "AND (:destino IS NULL OR r.arrival_airport_id = :destino) " +
-            "AND (:inicio IS NULL OR :fin IS NULL OR r.created_at BETWEEN :inicio AND :fin)",
+            "AND (:inicio IS NULL OR :fin IS NULL OR r.created_at BETWEEN :inicio AND :fin)" +
+            "AND s.state = 1",
             nativeQuery = true)
     List<ScheduleDto> getListFlight(@Param("origen") Integer origen,
                                     @Param("destino") Integer destino,
@@ -46,7 +47,8 @@ public interface ISchedulesRepository extends IBaseRepository<Schedules, Long> {
             "JOIN air_ports a2 ON r.arrival_airport_id = a2.id " +
             "WHERE (:origen IS NULL OR r.departure_airport_id = :origen) " +
             "AND (:destino IS NULL OR r.arrival_airport_id = :destino) " +
-            "AND (:fecha IS NULL OR s.date = :fecha)",
+            "AND (:fecha IS NULL OR s.date = :fecha)" +
+            "AND s.state = 1",
             nativeQuery = true)
     List<ScheduleDto> getListSpecificFlight(@Param("origen") Integer origen,
                                     @Param("destino") Integer destino,
